@@ -1,0 +1,62 @@
+.pacman-game {
+    text-align: center;
+    font-family: Arial, sans-serif;
+  }
+  
+  .score {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+  
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(15, 30px);
+    grid-template-rows: repeat(15, 30px);
+    gap: 1px;
+    justify-content: center;
+    margin: 0 auto;
+  }
+  
+  .row {
+    display: flex;
+  }
+  
+  .cell {
+    width: 30px;
+    height: 30px;
+    border: 1px solid #ccc;
+  }
+  
+  .pacman {
+    background-color: yellow;
+    border-radius: 50%;
+  }
+  
+  .ghost {
+    background-color: red;
+    border-radius: 50%;
+  }
+  
+  .empty {
+    background-color: #000;
+  }
+  
+  .game-over {
+    color: red;
+    margin-top: 20px;
+  }
+  
+  button {
+    padding: 10px 15px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+  }
+  
+  button:hover {
+    background-color: #45a049;
+  }
+  
