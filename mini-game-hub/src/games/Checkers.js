@@ -36,6 +36,7 @@ const Checkers = () => {
     setBoard(newBoard);
   };
 
+  // Handle square click for piece selection or movement
   const handleSquareClick = (row, col) => {
     if (selectedPiece) {
       movePiece(selectedPiece.row, selectedPiece.col, row, col);
@@ -44,6 +45,7 @@ const Checkers = () => {
     }
   };
 
+  // Move piece function
   const movePiece = (fromRow, fromCol, toRow, toCol) => {
     let newBoard = [...board];
 
@@ -58,12 +60,22 @@ const Checkers = () => {
         newBoard[toRow][toCol].king = true;
       }
 
+      // Handle jump capture
+      const rowDiff = Math.abs(toRow - fromRow);
+      const colDiff = Math.abs(toCol - fromCol);
+      if (rowDiff === 2 && colDiff === 2) {
+        const jumpedRow = (fromRow + toRow) / 2;
+        const jumpedCol = (fromCol + toCol) / 2;
+        newBoard[jumpedRow][jumpedCol] = null; // Remove the captured piece
+      }
+
       setBoard(newBoard);
       setSelectedPiece(null);
       setTurn(turn === "black" ? "white" : "black");
     }
   };
 
+  // Validate a move
   const isValidMove = (fromRow, fromCol, toRow, toCol) => {
     if (board[toRow][toCol]) return false; // Destination must be empty
 
@@ -73,11 +85,30 @@ const Checkers = () => {
     let rowDiff = toRow - fromRow;
     let colDiff = Math.abs(toCol - fromCol);
 
+    // For normal moves (1 square diagonally)
     if (piece.king) {
-      return Math.abs(rowDiff) === 1 && colDiff === 1; // Kings move 1 diagonal
+      if (Math.abs(rowDiff) === 1 && colDiff === 1) return true; // Kings move 1 square diagonally
     } else {
-      return rowDiff === (piece.color === "black" ? 1 : -1) && colDiff === 1;
+      if (rowDiff === (piece.color === "black" ? 1 : -1) && colDiff === 1) {
+        return true; // Regular piece moves 1 square diagonally
+      }
     }
+
+    // Handle jumps (captures)
+    const jumpedRow = (fromRow + toRow) / 2;
+    const jumpedCol = (fromCol + toCol) / 2;
+    const jumpedPiece = board[jumpedRow][jumpedCol];
+
+    if (
+      Math.abs(rowDiff) === 2 &&
+      colDiff === 2 &&
+      jumpedPiece &&
+      jumpedPiece.color !== piece.color
+    ) {
+      return true; // Valid jump (capture)
+    }
+
+    return false;
   };
 
   return (
