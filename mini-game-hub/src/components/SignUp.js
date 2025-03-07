@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import backgroundVideo from "../assets/backgroundVideo.mp4";
 import { auth } from "../firebase/config"; // Firebase configuration file
 import "../styles/signup.css";
 
@@ -35,13 +36,30 @@ const SignUp = () => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1 }}
     >
+
+
+ {/* Background video element */}
+      <div className="background-video">
+        <motion.video
+          src={backgroundVideo} // Replace with your own video URL
+          autoPlay
+          loop
+          muted
+          className="background-video-element"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 2 }}
+        />
+      </div>
+
+
       <motion.h2 
         className="signup-title"
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ delay: 0.5, duration: 0.8 }}
       >
-        📝 Sign Up
+       Sign Up
       </motion.h2>
 
       {error && <p className="error">{error}</p>}

@@ -1,0 +1,45 @@
+.leaderboard-container {
+    text-align: center;
+    padding: 20px;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    color: white;
+    max-width: 400px;
+    margin: auto;
+}
+
+.leaderboard-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+}
+
+.leaderboard-list {
+    list-style: none;
+    padding: 0;
+}
+
+.leaderboard-item {
+    font-size: 1.2rem;
+    font-weight: bold;
+    padding: 10px;
+    margin: 8px 0;
+    background: rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Highlight top 3 players */
+.rank-1 { background: linear-gradient(135deg, #ffd700, #ffcc00); color: black; } /* Gold */
+.rank-2 { background: linear-gradient(135deg, #c0c0c0, #b0b0b0); color: black; } /* Silver */
+.rank-3 { background: linear-gradient(135deg, #cd7f32, #b87333); color: black; } /* Bronze */
+
+.no-players {
+    font-size: 1.2rem;
+    font-style: italic;
+    color: #f8d7da;
+    margin-top: 10px;
+}

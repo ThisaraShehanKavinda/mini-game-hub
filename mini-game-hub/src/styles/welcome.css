@@ -1,4 +1,9 @@
 /* Ensure html and body take full height and remove margins */
+
+
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Orbitron:wght@400;700&family=Bungee+Shade&display=swap');
+
+
 html, body {
     height: 100%;
     margin: 0;
@@ -46,18 +51,60 @@ html, body {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
+
+
+  @keyframes scratchReveal {
+    0% {
+      opacity: 0;
+      transform: translateY(20px);
+      clip-path: inset(0 100% 0 0); /* Start hidden */
+    }
+    100% {
+      opacity: 1;
+      transform: translateY(0);
+      clip-path: inset(0 0 0 0); /* Reveal fully */
+    }
+  }
+
+
+
   
  /* Title styling with gradient text */
 .title {
-    font-size: 3rem;
-    font-weight: bold;
-    text-align: center;
-    background: linear-gradient(135deg, #ff4d79, #ff3d68, #ff914d);
-    -webkit-background-clip: text; /* Clip background to text */
-    -webkit-text-fill-color: transparent; /* Make text transparent to reveal gradient */
-    text-shadow: none; /* Remove the text shadow to keep gradient crisp */
-    animation: slideIn 1.5s ease-out; /* Animation for title */
+  font-family: 'Press Start 2P', cursive;
+  font-size: 2rem;
+  font-weight: bold;
+  text-align: center;
+  background: linear-gradient(135deg, #ff4d79, #ff3d68, #ff914d);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: none;
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: scratchReveal 1s ease-out forwards;
+
   }
+
+
+
+  .title span {
+    display: inline-block;
+    opacity: 0;
+    animation: scratchReveal 0.9s ease-in-out forwards;
+  }
+  
+  .title span:nth-child(1) { animation-delay: 0.1s; }
+  .title span:nth-child(1) { animation-delay: 0.1s; }
+  .title span:nth-child(1) { animation-delay: 0.1s; }
+  .title span:nth-child(1) { animation-delay: 0.1s; }
+  .title span:nth-child(2) { animation-delay: 0.3s; }
+  .title span:nth-child(3) { animation-delay: 0.5s; }
+  .title span:nth-child(4) { animation-delay: 0.7s; }
+  .title span:nth-child(5) { animation-delay: 0.9s; }
+  /* Add more if needed */
+
+
   
   @keyframes slideIn {
     0% { transform: translateY(-100px); opacity: 0; }
@@ -67,6 +114,7 @@ html, body {
   
   /* Subtitle styling */
   .subtitle {
+    font-family: 'Orbitron', sans-serif;
     font-size: 1.5rem;
     margin-top: 10px;
     font-weight: 500;
@@ -75,22 +123,23 @@ html, body {
   
   /* Start button styling */
   .start-button {
+    font-family: 'Orbitron', sans-serif;
     margin-top: 20px;
-    padding: 15px 30px;
+    padding: 15px 90px;
     font-size: 1.2rem;
     border: none;
     border-radius: 30px;
     cursor: pointer;
-    background: #ff4d79;
+    background:linear-gradient(135deg, #ff4d79, #ff3d68, #ff914d);
     color: white;
     font-weight: bold;
     transition: all 0.3s ease-in-out;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
-    animation: fadeIn 2s ease-in-out; /* Fade-in effect for the button */
+    animation: fadeIn 2s ease-in-out; 
   }
   
   .start-button:hover {
-    background: #ff3d68;
+    background: linear-gradient(135deg,#ff914d, #ff3d68,#ff4d79  );
     transform: scale(1.05);
   }
   
