@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../styles/tictactoe.css";
 
 const TicTacToe = () => {
@@ -35,12 +35,14 @@ const TicTacToe = () => {
     newBoard[index] = isXNext ? "X" : "O";
     setBoard(newBoard);
     setIsXNext(!isXNext);
+  };
 
-    const winner = calculateWinner(newBoard);
+  useEffect(() => {
+    const winner = calculateWinner(board);
     if (winner) {
       setWinner(winner);
     }
-  };
+  }, [board]); // This effect will run whenever the board state changes
 
   const renderCell = (index) => {
     return (

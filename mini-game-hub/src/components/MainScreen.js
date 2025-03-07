@@ -1,12 +1,33 @@
-import { motion } from "framer-motion";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/main.css";
 import GameSelection from "./GameSelection";
 import Leaderboard from "./Leaderboard";
 import Settings from "./Settings";
 
-const MainScreen = ({ user, games, onLogout }) => {
+const MainScreen = ({ user, onLogout }) => {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const navigate = useNavigate(); // Use navigate for navigation
+
+  // Create the games array
+  const gamesArray = [
+    { 
+      name: "Pac-Man", 
+      onSelect: (game) => console.log("Selected:", game.name) 
+    },
+    { 
+      name: "Chess", 
+      onSelect: (game) => console.log("Selected:", game.name) 
+    },
+    { 
+      name: "Tic-Tac-Toe", 
+      onSelect: (game) => console.log("Selected:", game.name) 
+    },
+    { 
+      name: "Checkers", 
+      onSelect: (game) => console.log("Selected:", game.name) 
+    }
+  ];
 
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {
@@ -14,74 +35,46 @@ const MainScreen = ({ user, games, onLogout }) => {
     }
   };
 
+  // Handle game selection and navigate to the corresponding game page
+  const handleGameSelect = (game) => {
+    console.log("Game selected:", game.name);
+    // Navigate to the corresponding game's page
+    navigate(`/${game.name.toLowerCase()}`);
+  };
+
   return (
-    <motion.div
-      className={`main-screen ${isDarkMode ? "dark-mode" : "light-mode"}`}
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={{ opacity: 1, scale: 1 }}
-      transition={{ duration: 1 }}
-    >
-      {/* Header Section */}
-      <motion.header
-        className="main-header"
-        initial={{ y: -50, opacity: 0 }}
-        animate={{ y: 0, opacity: 1 }}
-        transition={{ delay: 0.3, duration: 0.8 }}
-      >
+    <div className={`main-screen ${isDarkMode ? "dark-mode" : "light-mode"}`}>
+      <header className="main-header">
         <h2>Welcome, {user?.displayName || user?.email || "Player"}!</h2>
         <p>Total Points: ⭐ {user?.points || 0}</p>
-
         <div className="header-buttons">
-          <motion.button
+          <button
             className="theme-toggle"
             onClick={() => setIsDarkMode(!isDarkMode)}
-            whileHover={{ scale: 1.1 }}
-            whileTap={{ scale: 0.9 }}
           >
             {isDarkMode ? "🌞 Light Mode" : "🌙 Dark Mode"}
-          </motion.button>
-
-          <motion.button
-            className="logout-button"
-            onClick={handleLogout}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
+          </button>
+          <button className="logout-button" onClick={handleLogout}>
             🚪 Logout
-          </motion.button>
+          </button>
         </div>
-      </motion.header>
+      </header>
 
-      {/* Main Content Sections */}
+      {/* Pass the games array to GameSelection */}
       <div className="main-content">
-        <motion.div
-          className="settings-section"
-          initial={{ x: -100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.5, duration: 0.8 }}
-        >
+        <div className="settings-section">
           <Settings user={user} />
-        </motion.div>
+        </div>
 
-        <motion.div
-          className="game-selection-section"
-          initial={{ scale: 0.8, opacity: 0 }}
-          animate={{ scale: 1, opacity: 1 }}
-          transition={{ delay: 0.7, duration: 0.8 }}
-        >
-          <GameSelection games={games} />
-        </motion.div>
+        <div className="game-selection-section">
+          <GameSelection games={gamesArray} onSelect={handleGameSelect} />
+        </div>
 
-        <motion.div
-          className="leaderboard-section"
-          initial={{ x: 100, opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          transition={{ delay: 0.9, duration: 0.8 }}
-        >
+        <div className="leaderboard-section">
           <Leaderboard />
-        </motion.div>
+        </div>
       </div>
-    </motion.div>
+    </div>
   );
 };
 

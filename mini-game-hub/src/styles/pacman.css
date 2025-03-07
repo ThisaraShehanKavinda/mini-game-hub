@@ -1,20 +1,29 @@
 .pacman-game {
-    text-align: center;
-    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #000;
+    color: #fff;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  h1 {
+    font-size: 3rem;
+    margin-bottom: 10px;
   }
   
   .score {
-    font-size: 20px;
+    font-size: 1.5rem;
     margin-bottom: 20px;
   }
   
   .grid {
     display: grid;
-    grid-template-columns: repeat(15, 30px);
-    grid-template-rows: repeat(15, 30px);
-    gap: 1px;
-    justify-content: center;
-    margin: 0 auto;
+    grid-template-columns: repeat(15, 30px); /* Adjust grid size */
+    grid-gap: 2px;
+    margin-bottom: 20px;
   }
   
   .row {
@@ -25,6 +34,8 @@
     width: 30px;
     height: 30px;
     border: 1px solid #ccc;
+    background-color: #111;
+    position: relative;
   }
   
   .pacman {
@@ -35,28 +46,41 @@
   .ghost {
     background-color: red;
     border-radius: 50%;
+    animation: ghostMove 1s infinite linear;
   }
   
   .empty {
-    background-color: #000;
+    background-color: transparent;
   }
   
   .game-over {
-    color: red;
-    margin-top: 20px;
+    text-align: center;
   }
   
   button {
-    padding: 10px 15px;
-    font-size: 16px;
-    cursor: pointer;
-    background-color: #4caf50;
-    color: white;
+    background-color: #333;
+    color: #fff;
     border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
     border-radius: 5px;
+    margin-top: 10px;
   }
   
   button:hover {
-    background-color: #45a049;
+    background-color: #555;
+  }
+  
+  @keyframes ghostMove {
+    0% {
+      transform: translateY(0);
+    }
+    50% {
+      transform: translateY(-10px);
+    }
+    100% {
+      transform: translateY(0);
+    }
   }
   
