@@ -18,7 +18,6 @@ const SignIn = () => {
     setError(""); // Clear any previous error
 
     try {
-      // Firebase SignIn
       await signInWithEmailAndPassword(auth, data.email, data.password);
       console.log("Signed in with:", data);
       navigate("/main"); // Navigate to the main game hub after successful sign-in
@@ -36,12 +35,10 @@ const SignIn = () => {
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 1 }}
     >
-
-
- {/* Background video element */}
+      {/* Background video */}
       <div className="background-video">
         <motion.video
-          src={backgroundVideo} // Replace with your own video URL
+          src={backgroundVideo}
           autoPlay
           loop
           muted
@@ -66,6 +63,7 @@ const SignIn = () => {
       <form className="signin-form" onSubmit={handleSubmit(onSubmit)}>
         <div className="input-group">
           <label>Email</label>
+          
           <input
             type="email"
             placeholder="Enter your email"
@@ -76,6 +74,7 @@ const SignIn = () => {
 
         <div className="input-group">
           <label>Password</label>
+          
           <input
             type="password"
             placeholder="Enter your password"
