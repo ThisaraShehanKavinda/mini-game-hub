@@ -6,40 +6,27 @@ import Leaderboard from "./Leaderboard";
 import Settings from "./Settings";
 
 const MainScreen = ({ user, onLogout }) => {
-  const [isDarkMode, setIsDarkMode] = useState(true);
-  const navigate = useNavigate(); // Use navigate for navigation
+  const [isDarkMode] = useState(true);
+  const navigate = useNavigate(); // React Router navigation function
 
-  // Create the games array
+  // Game list with navigation
   const gamesArray = [
-    { 
-      name: "Pac-Man", 
-      onSelect: (game) => console.log("Selected:", game.name) 
-    },
-    { 
-      name: "Chess", 
-      onSelect: (game) => console.log("Selected:", game.name) 
-    },
-    { 
-      name: "Tic-Tac-Toe", 
-      onSelect: (game) => console.log("Selected:", game.name) 
-    },
-    { 
-      name: "Checkers", 
-      onSelect: (game) => console.log("Selected:", game.name) 
-    }
+    { name: "Pac-Man", onSelect: (game) => navigate(`/${game.name.toLowerCase()}`) },
+    { name: "Chess", onSelect: (game) => navigate(`/${game.name.toLowerCase()}`) },
+    { name: "Tic-Tac-Toe", onSelect: (game) => navigate(`/${game.name.toLowerCase()}`) },
+    { name: "Checkers", onSelect: (game) => navigate(`/${game.name.toLowerCase()}`) }
   ];
 
+  // Logout function
   const handleLogout = () => {
     if (window.confirm("Are you sure you want to log out?")) {
-      onLogout();
+      if (onLogout) {
+        onLogout(); // Call logout function from parent
+        navigate("/signin", { replace: true }); // Redirect to sign-in page
+      } else {
+        console.error("onLogout function is missing.");
+      }
     }
-  };
-
-  // Handle game selection and navigate to the corresponding game page
-  const handleGameSelect = (game) => {
-    console.log("Game selected:", game.name);
-    // Navigate to the corresponding game's page
-    navigate(`/${game.name.toLowerCase()}`);
   };
 
   return (
@@ -48,26 +35,19 @@ const MainScreen = ({ user, onLogout }) => {
         <h2>Welcome, {user?.displayName || user?.email || "Player"}!</h2>
         <p>Total Points: ⭐ {user?.points || 0}</p>
         <div className="header-buttons">
-          <button
-            className="theme-toggle"
-            onClick={() => setIsDarkMode(!isDarkMode)}
-          >
-            {isDarkMode ? "🌞 Light Mode" : "🌙 Dark Mode"}
-          </button>
           <button className="logout-button" onClick={handleLogout}>
             🚪 Logout
           </button>
         </div>
       </header>
 
-      {/* Pass the games array to GameSelection */}
       <div className="main-content">
         <div className="settings-section">
           <Settings user={user} />
         </div>
 
         <div className="game-selection-section">
-          <GameSelection games={gamesArray} onSelect={handleGameSelect} />
+          <GameSelection games={gamesArray} onSelect={(game) => navigate(`/${game.name.toLowerCase()}`)} />
         </div>
 
         <div className="leaderboard-section">

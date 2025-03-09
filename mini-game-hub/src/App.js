@@ -1,20 +1,32 @@
-import React from "react";
+import React, { useState } from "react";
 import { Route, BrowserRouter as Router, Routes } from "react-router-dom";
-import GameSelection from "./components/GameSelection"; // Import GameSelection
-import MainFrame from "./components/MainScreen"; // Create this file later
+import GameSelection from "./components/GameSelection";
+import MainScreen from "./components/MainScreen";
 import SignIn from "./components/SignIn";
 import SignUp from "./components/SignUp";
 import WelcomeScreen from "./components/WelcomeScreen";
-import Checkers from "./games/Checkers"; // Add Checkers Component
-import Chess from "./games/Chess"; // Add Chess Component
-import PacMan from "./games/PacMan"; // Add PacMan Component
-import Sudoku from "./games/Sudoku"; // Add Sudoku Component
-import TicTacToe from "./games/TicTacToe"; // Add TicTacToe Component
+import Checkers from "./games/Checkers";
+import Chess from "./games/Chess";
+import PacMan from "./games/PacMan";
+import Sudoku from "./games/Sudoku";
+import TicTacToe from "./games/TicTacToe";
 
 const App = () => {
-  // Define the onSelect function to navigate to the correct game page
+  const [user, setUser] = useState(null); // Track user login state
+
+  // Handle user login
+  const handleLogin = (userData) => {
+    setUser(userData);
+  };
+
+  // Handle user logout and redirect
+  const handleLogout = () => {
+    setUser(null); // Clear user state
+    window.location.href = "/signin"; // Redirect to sign-in
+  };
+
+  // Function to navigate to a selected game
   const handleGameSelect = (game) => {
-    // Navigate to the corresponding game page based on the selected game
     window.location.href = `/${game.name.toLowerCase()}`;
   };
 
@@ -22,12 +34,15 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<WelcomeScreen />} />
-        <Route path="/signin" element={<SignIn />} />
+        <Route path="/signin" element={<SignIn onLogin={handleLogin} />} />
         <Route path="/signup" element={<SignUp />} />
-        <Route path="/main" element={<MainFrame />} />
-        <Route
-          path="/game-selection"
-          element={<GameSelection onSelect={handleGameSelect} />}
+        <Route 
+          path="/main" 
+          element={<MainScreen user={user} onLogout={handleLogout} />} 
+        />
+        <Route 
+          path="/game-selection" 
+          element={<GameSelection onSelect={handleGameSelect} />} 
         />
         <Route path="/chess" element={<Chess />} />
         <Route path="/tic-tac-toe" element={<TicTacToe />} />
